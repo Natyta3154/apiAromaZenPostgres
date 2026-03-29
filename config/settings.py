@@ -11,8 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # =========================
 SECRET_KEY = config('SECRET_KEY')
 
-DEBUG = True  # Modificado para encontrar el error en Render
-# DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = ["apiaromazenpostgres.onrender.com", "127.0.0.1", "localhost"]
 
