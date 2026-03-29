@@ -14,7 +14,7 @@ SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = [
-    "apiaromazenpostgres-3.onrender.com"
+    "apiaromazenpostgres.onrender.com"
 ]
 
 # =========================
