@@ -90,11 +90,16 @@ class CustomUserAdmin(BaseUserAdmin):
         ).aggregate(total=Sum('total'))['total'] or 0
 
         color = "#28a745" if total > 0 else "#6c757d"
+        
+        try:
+            total_float = float(total)
+        except (TypeError, ValueError):
+            total_float = 0.0
 
         return format_html(
-            '<span style="background-color:{};color:white;padding:3px 10px;border-radius:12px;">$ {}</span>',
+            '<span style="background-color:{};color:white;padding:3px 10px;border-radius:12px;">$ {:,.2f}</span>',
             color,
-            f"{float(total):,.2f}"
+            total_float
         )
 
     total_gastado_badge.short_description = "LTV (Gasto Total)"
