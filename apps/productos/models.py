@@ -21,6 +21,7 @@ class Producto(models.Model):
     El alma del ecommerce. Contiene precio, stock y descripción.
     """
     nombre = models.CharField(max_length=200, verbose_name="Nombre del Producto")
+    slug = models.SlugField(max_length=250, unique=True, blank=True, null=True, verbose_name="URL Amigable (Slug)")
     descripcion = models.TextField(verbose_name="Descripción del Producto")
     precio = models.DecimalField(
         max_digits=10, 
@@ -46,6 +47,12 @@ class Producto(models.Model):
     class Meta:
         verbose_name = "Producto"
         verbose_name_plural = "Productos"
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            from django.utils.text import slugify
+            self.slug = slugify(self.nombre)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.nombre

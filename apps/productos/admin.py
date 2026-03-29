@@ -29,7 +29,8 @@ class CategoriaAdmin(admin.ModelAdmin):
 @admin.register(Producto)
 class ProductoAdmin(admin.ModelAdmin):
     form = ProductoAdminForm
-    list_display = ('nombre_con_imagen', 'categoria', 'precio_formateado', 'stock_display', 'activo', 'destacado','stock_total_historico','stock')
+    list_display = ('nombre_con_imagen', 'slug', 'categoria', 'precio_formateado', 'stock_display', 'activo', 'destacado','stock_total_historico','stock')
+    prepopulated_fields = {"slug": ("nombre",)}
     list_filter = ('activo', 'destacado', 'categoria')
     search_fields = ('nombre', 'descripcion')
     list_editable = ('activo', 'destacado')
@@ -38,7 +39,7 @@ class ProductoAdmin(admin.ModelAdmin):
         if not obj:  # Creación
             return (
                 ('General', {
-                    'fields': (('nombre', 'categoria'), 'descripcion', 'precio', 'stock', 'imagen_url')
+                    'fields': (('nombre', 'slug', 'categoria'), 'descripcion', 'precio', 'stock', 'imagen_url')
                 }),
                 ('Visibilidad', {
                     'fields': ('activo', 'destacado'),
@@ -47,7 +48,7 @@ class ProductoAdmin(admin.ModelAdmin):
         # Edición
         return (
             ('General', {
-                'fields': (('nombre', 'categoria'), 'descripcion', 'precio', 'imagen_url')
+                'fields': (('nombre', 'slug', 'categoria'), 'descripcion', 'precio', 'imagen_url')
             }),
             ('Inventario', {
                 'fields': ('stock', 'agregar_stock', 'stock_total_historico'),
