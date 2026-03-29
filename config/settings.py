@@ -13,9 +13,7 @@ SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = [
-    "apiaromazenpostgres.onrender.com"
-]
+ALLOWED_HOSTS = ["apiaromazenpostgres.onrender.com", "127.0.0.1", "localhost"]
 
 # =========================
 # 🌐 CORS (para Vercel)

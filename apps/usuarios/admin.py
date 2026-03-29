@@ -97,9 +97,9 @@ class CustomUserAdmin(BaseUserAdmin):
             total_float = 0.0
 
         return format_html(
-            '<span style="background-color:{};color:white;padding:3px 10px;border-radius:12px;">$ {:,.2f}</span>',
+            '<span style="background-color:{};color:white;padding:3px 10px;border-radius:12px;">$ {}</span>',
             color,
-            total_float
+            f"{total_float:,.2f}"
         )
 
     total_gastado_badge.short_description = "LTV (Gasto Total)"
