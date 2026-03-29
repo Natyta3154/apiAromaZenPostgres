@@ -57,7 +57,7 @@ App-Zahumeri-postgres/
    ```bash
    # Windows
    python -m venv venv
-   .\venv\Scripts\Activate
+   .\venvApi\Scripts\Activate
 
    # Linux/macOS
    python3 -m venv venv

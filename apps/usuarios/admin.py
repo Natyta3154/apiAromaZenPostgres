@@ -77,35 +77,24 @@ class CustomUserAdmin(BaseUserAdmin):
     )
 
     def get_queryset(self, request):
-        qs = super().get_queryset(request)
-        qs = qs.annotate(
-            total_pagado=Sum(
-                'ordenes__total',
-                filter=Q(ordenes__estado='pagado')
-            ),
-            pedidos_count=Count('ordenes')
-        )
-        return qs
+        return super().get_queryset(request)
 
     def cantidad_pedidos(self, obj):
-        return obj.pedidos_count or 0
+        return obj.ordenes.count()
 
     cantidad_pedidos.short_description = "Pedidos"
 
     def total_gastado_badge(self, obj):
-        total = obj.total_pagado or 0
-
-        try:
-            total_str = f"{float(total):,.2f}"
-        except:
-            total_str = str(total)
+        total = obj.ordenes.filter(
+            estado='pagado'
+        ).aggregate(total=Sum('total'))['total'] or 0
 
         color = "#28a745" if total > 0 else "#6c757d"
 
         return format_html(
-            '<span style="background-color: {}; color: white; padding: 3px 10px; border-radius: 12px; font-weight: bold;">$ {}</span>',
+            '<span style="background-color:{};color:white;padding:3px 10px;border-radius:12px;">$ {}</span>',
             color,
-            total_str
+            f"{float(total):,.2f}"
         )
 
     total_gastado_badge.short_description = "LTV (Gasto Total)"
