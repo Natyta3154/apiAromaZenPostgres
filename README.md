@@ -112,3 +112,5 @@ Desde el **Swagger UI**, puedes probar cada endpoint directamente sin necesidad 
 crear el requirements.txt
 
 pip freeze > requirements.txt
+
+gunicorn config.wsgi:application

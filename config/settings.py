@@ -13,7 +13,9 @@ SECRET_KEY = config('SECRET_KEY')
 
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*').split(',')
+ALLOWED_HOSTS = [
+    "apiaromazenpostgres-3.onrender.com"
+]
 
 # =========================
 # 🌐 CORS (para Vercel)
@@ -21,8 +23,16 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*').split(',')
 CORS_ALLOWED_ORIGINS = [
     "https://front-aroma-zen-postgres.vercel.app",  # CAMBIAR por tu URL real
 ]
+CSRF_TRUSTED_ORIGINS = [
+    "https://front-aroma-zen-postgres.vercel.app",
+]
 
 CORS_ALLOW_CREDENTIALS = True
+
+
+#Render usa proxy → Django a veces se confunde
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 
 # =========================
 # 📦 APPS
